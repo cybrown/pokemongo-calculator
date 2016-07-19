@@ -1,0 +1,8 @@
+[
+    {"id": 10, "nameEn": "Caterpie", "nameFr": "Chenipan", "candiesToEvolve": 12},
+    {"id": 13, "nameEn": "Weedle", "nameFr": "Aspicot", "candiesToEvolve": 12},
+    {"id": 16, "nameEn": "Pidgey", "nameFr": "Roucool", "candiesToEvolve": 12},
+    {"id": 19, "nameEn": "Rattata", "nameFr": "Rattata", "candiesToEvolve": 25},
+    {"id": 41, "nameEn": "Zubat", "nameFr": "Nosferapti", "candiesToEvolve": 50},
+    {"id": 133, "nameEn": "Eevee", "nameFr": "Evoli", "candiesToEvolve": 25}
+]
