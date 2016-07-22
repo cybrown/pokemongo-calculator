@@ -20,14 +20,9 @@ const pokemonGoCalculator = angular.module("pokemonGoCalculator", ["ui.bootstrap
 
 pokemonGoCalculator.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider) {
     // For any unmatched url, redirect to /
-    $urlRouterProvider.otherwise("/");
+    $urlRouterProvider.otherwise("/luckyEgg");
     $stateProvider
-    .state("home", {
-        url: "/",
-        controller: "HomeController",
-        controllerAs: "ctrl",
-        template: require("./home/home.html")
-    }).state("luckyEgg", {
+    .state("luckyEgg", {
         url: "/luckyEgg",
         controller: "LuckyEggController",
         controllerAs: "ctrl",
