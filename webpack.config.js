@@ -8,7 +8,6 @@ module.exports = {
     },
     output: {
         path: __dirname + '/dist/',
-        publicPath: "/dist/",
         filename: 'bundle.js'
     },
     resolve: {
@@ -33,5 +32,8 @@ module.exports = {
         new ExtractTextPlugin("style.css", {
             allChunks: true
         })
-    ]
+    ],
+    devServer: {
+        publicPath: '/dist/'
+    }
 };
