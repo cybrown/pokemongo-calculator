@@ -1,4 +1,92 @@
 <div class="lucky-egg">
-    <h1>Lucky Egg Calculator</h1>
-    <pre>{{ctrl.pokemonList}}</pre>
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>
+                Lucky Egg Optimizer
+                <span class="pull-right pokemon-name-switch">
+                    Pokemon name
+                    <button type="button" class="btn btn-default btn-xs" ng-class="{'btn-primary': ctrl.pokemonNameLang === 'En'}" ng-click="ctrl.setPokemonNameLang('En')">EN</button>
+                    or
+                    <button type="button" class="btn btn-default btn-xs" ng-class="{'btn-primary': ctrl.pokemonNameLang === 'Fr'}" ng-click="ctrl.setPokemonNameLang('Fr')">FR</button>
+                </span>
+            </h1>
+
+        </div>
+    </div>
+    <div class="row">
+        <form class="form-horizontal col-xs-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Pokémon</th>
+                        <th>Count</th>
+                        <th>Candies</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="bagData in ctrl.bagDataList track by $index">
+                        <td>{{ctrl.getPokemonName(bagData.pokemon)}}</td>
+                        <td>{{bagData.pokemonCount}}</td>
+                        <td>{{bagData.candyCount}}</td>
+                        <td><button type="button" class="btn btn-default" ng-click="ctrl.removeFromBag(bagData)"><i class="fa fa-trash"></i></button></td>
+                    </tr>
+                    <tr class="active">
+                        <td>
+                            <select class="form-control"
+                                ng-model="ctrl.bagInput.pokemon"
+                                ng-options="ctrl.getPokemonName(pokemon) group by pokemon.candiesToEvolve for pokemon in ctrl.pokemonList">
+                            </select>
+                        </td>
+                        <td><input type="number" class="form-control" ng-model="ctrl.bagInput.pokemonCount" /></td>
+                        <td><input type="number" class="form-control" ng-model="ctrl.bagInput.candyCount" /></td>
+                        <td><button type="submit" class="btn btn-default" ng-click="ctrl.addInputToBag()"><i class="fa fa-plus"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <button type="button" class="btn btn-success col-xs-12" ng-click="ctrl.optimizeBag()">Optimize</button>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-danger col-xs-12" ng-click="ctrl.resetData()">Reset data</button>
+        </div>
+    </div>
+    <div class="row optimization-result" ng-if="ctrl.bagOptimization">
+        <div class="col-xs-12 optimization-result-title">
+            <strong>{{ctrl.bagOptimization.totalEvolutionCount}}</strong> possible evolutions - Estimated time to evolve : <strong>{{ctrl.bagOptimization.timeToEvolve}} min</strong>
+        </div>
+        <div class="col-md-4">
+            <div class="optimization-step-title">
+                You have to transfer :
+            </div>
+            <ul>
+                <li ng-repeat="optimization in ctrl.bagOptimization.optimizations" ng-show="optimization.transferCount">
+                    {{optimization.transferCount}} {{ctrl.getPokemonName(optimization.pokemon)}}
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <div class="optimization-step-title">
+                You can evolve :
+            </div>
+            <ul>
+                <li ng-repeat="optimization in ctrl.bagOptimization.optimizations" ng-show="optimization.evolutionCount">
+                    {{optimization.evolutionCount}} {{ctrl.getPokemonName(optimization.pokemon)}}
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <div class="optimization-step-title">
+                What left in your bag :
+            </div>
+            <ul>
+                <li ng-repeat="optimization in ctrl.bagOptimization.optimizations">
+                    {{optimization.pokemonLeft}} {{ctrl.getPokemonName(optimization.pokemon)}} and {{optimization.candyLeft}} candies
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
