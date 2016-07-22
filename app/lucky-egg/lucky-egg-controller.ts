@@ -22,8 +22,10 @@ export class LuckyEggController {
     }
 
     addInputToBag() {
-        this.bagDataList.push(this.bagInput);
-        this.initInput();
+        if (this.bagInput.pokemon && this.bagInput.pokemonCount && this.bagInput.pokemonCount) {
+            this.bagDataList.push(this.bagInput);
+            this.initInput();
+        }
     }
 
     removeFromBag(data: IBagData) {
