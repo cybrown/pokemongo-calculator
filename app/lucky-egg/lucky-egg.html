@@ -58,35 +58,66 @@
         <div class="col-xs-12 optimization-result-title">
             <strong>{{ctrl.bagOptimization.totalEvolutionCount}}</strong> possible evolutions - Estimated time to evolve : <strong>{{ctrl.bagOptimization.timeToEvolve}} min</strong>
         </div>
-        <div class="col-md-4">
-            <div class="optimization-step-title">
-                You have to transfer :
+        <div class="optimization-step col-xs-12">
+            <div class="col-xs-12">
+                <div class="optimization-step-title text-success">
+                    1. Transfer your pokémons
+                </div>
             </div>
-            <ul>
-                <li ng-repeat="optimization in ctrl.bagOptimization.optimizations" ng-show="optimization.transferCount">
-                    {{optimization.transferCount}} {{ctrl.getPokemonName(optimization.pokemon)}}
-                </li>
-            </ul>
+            <div class="col-md-6">
+                <div class="optimization-step-subtitle text-info">
+                    1.1. You have to transfer :
+                </div>
+                <ul>
+                    <li ng-repeat="optimization in ctrl.bagOptimization.optimizations" ng-show="optimization.transferCount">
+                        {{optimization.transferCount}} {{ctrl.getPokemonName(optimization.pokemon)}}
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <div class="optimization-step-subtitle text-info">
+                    1.2. Before starting your lucky egg, you should have in your bag :
+                </div>
+                <ul>
+                    <li ng-repeat="optimization in ctrl.bagOptimization.optimizations">
+                        {{optimization.pokemonAfterTransfer}} {{ctrl.getPokemonName(optimization.pokemon)}} and {{optimization.candyAfterTransfer}} candies
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="col-md-4">
-            <div class="optimization-step-title">
-                You can evolve :
+        <div class="optimization-step col-xs-12">
+            <div class="col-xs-12">
+                <div class="optimization-step-title text-success">
+                    2. Start your lucky egg
+                </div>
             </div>
-            <ul>
-                <li ng-repeat="optimization in ctrl.bagOptimization.optimizations" ng-show="optimization.evolutionCount">
-                    {{optimization.evolutionCount}} {{ctrl.getPokemonName(optimization.pokemon)}}
-                </li>
-            </ul>
         </div>
-        <div class="col-md-4">
-            <div class="optimization-step-title">
-                What left in your bag :
+        <div class="optimization-step col-xs-12">
+            <div class="col-xs-12">
+                <div class="optimization-step-title text-success">
+                    3. Evolve your pokémons
+                </div>
             </div>
-            <ul>
-                <li ng-repeat="optimization in ctrl.bagOptimization.optimizations">
-                    {{optimization.pokemonLeft}} {{ctrl.getPokemonName(optimization.pokemon)}} and {{optimization.candyLeft}} candies
-                </li>
-            </ul>
+            <div class="col-md-6">
+                <div class="optimization-step-subtitle text-info">
+                    3.1 You can evolve :
+                </div>
+                <ul>
+                    <li ng-repeat="optimization in ctrl.bagOptimization.optimizations" ng-show="optimization.evolutionCount">
+                        {{optimization.evolutionCount}} {{ctrl.getPokemonName(optimization.pokemon)}}
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <div class="optimization-step-subtitle text-info">
+                    3.2. What's' left in your bag :
+                </div>
+                <ul>
+                    <li ng-repeat="optimization in ctrl.bagOptimization.optimizations">
+                        {{optimization.pokemonLeft}} {{ctrl.getPokemonName(optimization.pokemon)}} and {{optimization.candyLeft}} candies
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
