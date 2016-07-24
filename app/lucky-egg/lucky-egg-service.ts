@@ -20,6 +20,8 @@ export interface IBagOptimization {
 export interface IPokemonOptimization {
     pokemon: IPokemon;
     transferCount: number;
+    candyAfterTransfer: number;
+    pokemonAfterTransfer: number;
     evolutionCount: number;
     pokemonLeft: number;
     candyLeft: number;
@@ -56,6 +58,8 @@ export class LuckyEggService {
                 pokemonOptimization = {
                     pokemon: bagData.pokemon,
                     transferCount: 0,
+                    candyAfterTransfer: bagData.candyCount,
+                    pokemonAfterTransfer: bagData.pokemonCount,
                     evolutionCount: bagData.pokemonCount,
                     pokemonLeft: 0,
                     candyLeft: bagData.candyCount - bagData.pokemonCount * bagData.pokemon.candiesToEvolve
@@ -75,6 +79,8 @@ export class LuckyEggService {
                 pokemonOptimization = {
                     pokemon: bagData.pokemon,
                     transferCount: transferCount,
+                    candyAfterTransfer: bagData.candyCount + transferCount,
+                    pokemonAfterTransfer: bagData.pokemonCount - transferCount,
                     evolutionCount: evolutionCount,
                     pokemonLeft: pokemonLeft,
                     candyLeft: candyLeft
