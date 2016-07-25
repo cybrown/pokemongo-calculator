@@ -48,6 +48,7 @@ export class LuckyEggController {
     resetData() {
         this.bagDataList = [];
         localStorage.removeItem("data");
+        this.bagOptimization = null;
     }
 
     setPokemonNameLang(lang: string) {
