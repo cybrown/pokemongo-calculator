@@ -52,40 +52,39 @@ export class LuckyEggService {
         };
 
         bag.forEach(bagData => {
-            let pokemonOptimization: IPokemonOptimization = null;
-            let possibleEvolutionCount = Math.floor(bagData.candyCount / bagData.pokemon.candiesToEvolve);
-            if (possibleEvolutionCount > bagData.pokemonCount) {
-                pokemonOptimization = {
-                    pokemon: bagData.pokemon,
-                    transferCount: 0,
-                    candyAfterTransfer: bagData.candyCount,
-                    pokemonAfterTransfer: bagData.pokemonCount,
-                    evolutionCount: bagData.pokemonCount,
-                    pokemonLeft: 0,
-                    candyLeft: bagData.candyCount - bagData.pokemonCount * bagData.pokemon.candiesToEvolve
-                };
-            } else {
-                let candiesLeftAfterFirstEvolution = bagData.candyCount % bagData.pokemon.candiesToEvolve;
-                let possibleTransferCount = bagData.pokemonCount - possibleEvolutionCount;
-
-                let supplementEvolutionCount = Math.floor((possibleTransferCount + candiesLeftAfterFirstEvolution) / (bagData.pokemon.candiesToEvolve + 1));
-
-                let transferCount = Math.max(supplementEvolutionCount * bagData.pokemon.candiesToEvolve - candiesLeftAfterFirstEvolution, 0);
-                let evolutionCount = possibleEvolutionCount + supplementEvolutionCount;
-
-                let pokemonLeft = bagData.pokemonCount - transferCount - evolutionCount;
-                let candyLeft = bagData.candyCount + transferCount - (bagData.pokemon.candiesToEvolve * evolutionCount);
-
-                pokemonOptimization = {
-                    pokemon: bagData.pokemon,
-                    transferCount: transferCount,
-                    candyAfterTransfer: bagData.candyCount + transferCount,
-                    pokemonAfterTransfer: bagData.pokemonCount - transferCount,
-                    evolutionCount: evolutionCount,
-                    pokemonLeft: pokemonLeft,
-                    candyLeft: candyLeft
-                };
+            let candiesLeft = bagData.candyCount;
+            let pokemonLeft = bagData.pokemonCount;
+            let evolutions = 0;
+            while (Math.floor(candiesLeft / bagData.pokemon.candiesToEvolve) > 0) {
+                let possibleEvolutions = Math.floor(candiesLeft / bagData.pokemon.candiesToEvolve);
+                if (possibleEvolutions > pokemonLeft) {
+                    possibleEvolutions = pokemonLeft;
+                }
+                evolutions += possibleEvolutions;
+                pokemonLeft -= possibleEvolutions;
+                // 1 evolution = 1 candy
+                candiesLeft -= possibleEvolutions * (bagData.pokemon.candiesToEvolve - 1);
             }
+
+            // not enough candies to evolve, can i have more candies by transfering ?
+            let transfers = 0;
+            while ( Math.floor((pokemonLeft + candiesLeft) / (bagData.pokemon.candiesToEvolve + 1)) > 0) {
+                let possibleSecondEvolutions = Math.floor((pokemonLeft + candiesLeft) / (bagData.pokemon.candiesToEvolve + 1));
+                evolutions += possibleSecondEvolutions;
+                transfers += possibleSecondEvolutions * bagData.pokemon.candiesToEvolve - candiesLeft;
+                pokemonLeft = pokemonLeft + candiesLeft - possibleSecondEvolutions * (bagData.pokemon.candiesToEvolve + 1);
+                candiesLeft = possibleSecondEvolutions;
+            }
+
+            let pokemonOptimization = {
+                pokemon: bagData.pokemon,
+                transferCount: transfers,
+                candyAfterTransfer: bagData.candyCount + transfers,
+                pokemonAfterTransfer: bagData.pokemonCount - transfers,
+                evolutionCount: evolutions,
+                pokemonLeft: pokemonLeft,
+                candyLeft: candiesLeft
+            };
 
             bagOptimization.optimizations.push(pokemonOptimization);
             bagOptimization.timeToEvolve += pokemonOptimization.evolutionCount * LuckyEggService.TIME_TO_EVOLVE;
