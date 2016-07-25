@@ -1,4 +1,5 @@
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     name: 'client',
@@ -20,8 +21,8 @@ module.exports = {
         loaders: [
             { test: /\.html$/, loader: "html" },
             { test: /\.ts$/, loader: 'ts' },
-            { test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader") },
-            { test: /\.less$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader") },
+            { test: /\.css$/, loader: ExtractTextPlugin.extract("style", "css") },
+            { test: /\.less$/, loader: ExtractTextPlugin.extract("style", "css!less") },
             {test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff'},
             {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
             {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
@@ -31,9 +32,9 @@ module.exports = {
     plugins: [
         new ExtractTextPlugin("style.css", {
             allChunks: true
+        }),
+        new HtmlWebpackPlugin({
+            template: __dirname + '/app/index-template.html'
         })
-    ],
-    devServer: {
-        publicPath: '/dist/'
-    }
+    ]
 };
