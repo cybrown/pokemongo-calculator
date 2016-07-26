@@ -41,6 +41,7 @@ export class LuckyEggController {
     }
 
     optimizeBag() {
+        this.addInputToBag();
         localStorage.setItem("data", JSON.stringify(this.bagDataList));
         this.bagOptimization = this.luckyEggService.optimize(this.bagDataList);
     }
