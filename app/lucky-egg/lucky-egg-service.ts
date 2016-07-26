@@ -55,7 +55,7 @@ export class LuckyEggService {
             let candiesLeft = bagData.candyCount;
             let pokemonLeft = bagData.pokemonCount;
             let evolutions = 0;
-            while (Math.floor(candiesLeft / bagData.pokemon.candiesToEvolve) > 0) {
+            while (Math.floor(candiesLeft / bagData.pokemon.candiesToEvolve) > 0 && pokemonLeft > 0) {
                 let possibleEvolutions = Math.floor(candiesLeft / bagData.pokemon.candiesToEvolve);
                 if (possibleEvolutions > pokemonLeft) {
                     possibleEvolutions = pokemonLeft;
@@ -68,7 +68,7 @@ export class LuckyEggService {
 
             // not enough candies to evolve, can i have more candies by transfering ?
             let transfers = 0;
-            while ( Math.floor((pokemonLeft + candiesLeft) / (bagData.pokemon.candiesToEvolve + 1)) > 0) {
+            while (Math.floor((pokemonLeft + candiesLeft) / (bagData.pokemon.candiesToEvolve + 1)) > 0 && pokemonLeft > 0) {
                 let possibleSecondEvolutions = Math.floor((pokemonLeft + candiesLeft) / (bagData.pokemon.candiesToEvolve + 1));
                 evolutions += possibleSecondEvolutions;
                 transfers += possibleSecondEvolutions * bagData.pokemon.candiesToEvolve - candiesLeft;
