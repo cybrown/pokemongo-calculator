@@ -4,15 +4,6 @@
   "description": "A calculator for pokemongo app",
   "main": "app.js",
   "scripts": {
-    "start": "npm run serve:dev",
-    "dist": "npm-run-all build:dist serve:dist",
-    "build:dist": "npm-run-all clean:dist mkdir:dist webpack:dist",
-    "serve:dev": "webpack-dev-server --inline --content-base dist/",
-    "serve:dist": "http-server dist",
-    "webpack:dist": "webpack --optimize-minimize",
-    "clean:dist": "rimraf dist",
-    "mkdir:dist": "mkdir dist",
-    "postinstall": "typings install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "fvichery",
@@ -22,32 +13,13 @@
     "url": "git://github.com/Flovy/pokemongo-calculator.git"
   },
   "devDependencies": {
+    "@types/angular": "^1.5.9",
+    "@types/angular-ui-router": "^1.1.31",
+    "@types/jquery": "^1.10.28",
     "angular": "^1.5.5",
     "angular-ui-bootstrap": "^1.3.2",
     "angular-ui-router": "^0.3.0",
     "bootstrap": "^3.3.6",
-    "css-loader": "^0.23.1",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "file-loader": "^0.8.5",
-    "font-awesome": "^4.6.1",
-    "html-loader": "^0.4.3",
-    "html-webpack-plugin": "^2.22.0",
-    "http-server": "^0.9.0",
-    "jquery": "^2.2.3",
-    "json-loader": "^0.5.4",
-    "less": "^2.6.1",
-    "less-loader": "^2.2.3",
-    "npm-run-all": "^1.7.0",
-    "rimraf": "^2.5.2",
-    "source-map-loader": "^0.1.5",
-    "style-loader": "^0.13.1",
-    "ts-loader": "^0.8.2",
-    "tslint": "^3.9.0",
-    "tslint-loader": "^2.1.4",
-    "typescript": "^1.8.10",
-    "typings": "^1.0",
-    "url-loader": "^0.5.7",
-    "webpack": "^1.13.0",
-    "webpack-dev-server": "^1.14.1"
+    "font-awesome": "^4.6.1"
   }
 }
